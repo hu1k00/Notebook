@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal - My Notebook Website</title>
+    <link rel="stylesheet" href="../../Static/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Notebook</h1>
+        <nav>
+            <ul>
+                <li><a href="../../Main.html">Home</a></li>
+                
+            </ul>
+        </nav>
+        <h4> XSS  Page</h4>
+    </header>
+    <h1 id="cross-site-scripting-xss-">Cross-site scripting (XSS)</h1>
+<p>   Cross-Site Scripting (XSS) works by exploiting vulnerabilities in web applications to inject and execute malicious scripts in the context of a user&#39;s web browser. XSS attacks typically involve three main parties: the attacker, the victim, and the vulnerable web application.</p>
+<hr>
+<h3 id="reflected-xss">Reflected XSS</h3>
+<pre><code>Reflected XSS attacks are <span class="hljs-string">"reflected"</span> because <span class="hljs-keyword">the</span> injected code <span class="hljs-keyword">is</span> reflected <span class="hljs-keyword">back</span> <span class="hljs-keyword">to</span> <span class="hljs-keyword">the</span> victim <span class="hljs-keyword">as</span> part <span class="hljs-keyword">of</span> <span class="hljs-keyword">the</span> server's response. This differs <span class="hljs-keyword">from</span> stored XSS attacks, <span class="hljs-keyword">where</span> <span class="hljs-keyword">the</span> injected code <span class="hljs-keyword">is</span> stored <span class="hljs-keyword">on</span> <span class="hljs-keyword">the</span> server <span class="hljs-keyword">and</span> served <span class="hljs-keyword">to</span> multiple users <span class="hljs-keyword">over</span> <span class="hljs-built_in">time</span>.
+</code></pre><ul>
+<li><p><strong>What is reflected cross-site scripting?</strong></p>
+<ul>
+<li>Reflected Cross-Site Scripting (XSS) is a type of web security vulnerability where an attacker injects malicious scripts into a website, which then get reflected back to the user&#39;s browser. The injected scripts are usually crafted to execute in the context of the user&#39;s session on the website, allowing the attacker to steal information, hijack user sessions, or perform other malicious actions.</li>
+</ul>
+</li>
+<li><p><strong>Here&#39;s how reflected XSS typically works:</strong></p>
+</li>
+</ul>
+<pre><code> <span class="hljs-number">1</span>-The attacker crafts a URL containing malicious code, such <span class="hljs-keyword">as</span> JavaScript, <span class="hljs-keyword">and</span> sends <span class="hljs-keyword">it</span> <span class="hljs-keyword">to</span> <span class="hljs-keyword">the</span> victim.
+
+ <span class="hljs-number">2</span>-The victim clicks <span class="hljs-keyword">on</span> <span class="hljs-keyword">the</span> malicious URL, <span class="hljs-keyword">or</span> <span class="hljs-keyword">it</span> may be delivered <span class="hljs-keyword">through</span> other means such <span class="hljs-keyword">as</span> a phishing email <span class="hljs-keyword">or</span> a compromised website.
+
+ <span class="hljs-number">3</span>-The web server processes <span class="hljs-keyword">the</span> request <span class="hljs-keyword">and</span> includes <span class="hljs-keyword">the</span> malicious code <span class="hljs-keyword">in</span> <span class="hljs-keyword">the</span> response, which <span class="hljs-keyword">is</span> <span class="hljs-keyword">then</span> sent <span class="hljs-keyword">back</span> <span class="hljs-keyword">to</span> <span class="hljs-keyword">the</span> victim's browser.
+
+ <span class="hljs-number">4</span>-The victim's browser renders <span class="hljs-keyword">the</span> web page, executing <span class="hljs-keyword">the</span> injected <span class="hljs-keyword">script</span> <span class="hljs-keyword">in</span> <span class="hljs-keyword">the</span> context <span class="hljs-keyword">of</span> <span class="hljs-keyword">the</span> website's domain. This allows <span class="hljs-keyword">the</span> attacker <span class="hljs-keyword">to</span> carry out various malicious activities, such <span class="hljs-keyword">as</span> stealing cookies, redirecting <span class="hljs-keyword">the</span> user <span class="hljs-keyword">to</span> a phishing site, <span class="hljs-keyword">or</span> modifying <span class="hljs-keyword">the</span> content <span class="hljs-keyword">of</span> <span class="hljs-keyword">the</span> page.
+</code></pre><ul>
+<li><p><strong>How to find and test for reflected XSS vulnerabilities?</strong></p>
+<ul>
+<li><p>Testing for reflected XSS vulnerabilities manually involves the following steps:</p>
+<ol>
+<li><p>Test every entry point. </p>
+</li>
+<li><p>Submit random alphanumeric values.</p>
+</li>
+<li><p>Determine the reflection context.</p>
+</li>
+<li><p>Test a candidate payload.</p>
+</li>
+<li><p>Test alternative payloads.</p>
+</li>
+<li><p>Test the attack in a browser.</p>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="stored-xss">Stored XSS</h3>
+<p> Stored XSS is particularly dangerous because the injected script is permanently stored on the server and affects all users who access the vulnerable page or resource. It can lead to widespread exploitation and compromise of user accounts and sensitive data.</p>
+</li>
+<li><p><strong>What is stored cross-site scripting?</strong></p>
+<ul>
+<li><code>Stored</code> Cross-Site Scripting (XSS), also known as persistent XSS, is a type of security vulnerability found in web applications. In stored XSS attacks, malicious scripts are injected into a website&#39;s database or other storage mechanism and then retrieved and executed by other users when they access the affected page or resource.</li>
+</ul>
+</li>
+<li><p><strong>Here&#39;s how stored XSS typically works:</strong> </p>
+<ol>
+<li><p>An attacker injects malicious code, usually JavaScript, into a web application. This injection point could be in a comment form, message board, user profile, or any other input field where user-supplied content is stored and displayed to other users.</p>
+</li>
+<li><p>The injected code is stored on the server, usually in a database, along with legitimate content. </p>
+</li>
+<li><p>When other users visit the affected page or view the stored content, the malicious code is retrieved from the server and executed in their browsers.</p>
+</li>
+<li><p>The executed script can perform various malicious actions, such as stealing cookies, hijacking user sessions, redirecting users to phishing sites, or modifying the content of the page.</p>
+</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li><p><strong>How to find and test for stored XSS vulnerabilities?</strong></p>
+<p>  -Entry points into the application&#39;s processing include:</p>
+<ol>
+<li><p>Parameters or other data within the URL query string and message body.</p>
+</li>
+<li><p>The URL file path.</p>
+</li>
+<li><p>HTTP request headers that might not be exploitable in relation to reflected XSS.</p>
+</li>
+<li><p>Any out-of-band routes via which an attacker can deliver data into the application.</p>
+</li>
+</ol>
+<h3 id="dom-based-xss">DOM-based XSS</h3>
+<p> DOM-based Cross-Site Scripting (XSS) is a type of XSS vulnerability that occurs when client-side scripts manipulate the Document Object Model (DOM) in an insecure way. Unlike traditional XSS, where the malicious payload is injected into the server&#39;s response, DOM-based XSS vulnerabilities arise from the client-side processing of user input.</p>
+</li>
+<li><p><strong>What is HTML DOM ?</strong></p>
+<p>  -with the html DOM , javaScript can <code>Access and Change</code> all the element of an HTML Document.</p>
+</li>
+<li><p><strong>DOM XSS:</strong> </p>
+<pre><code> It occurs when JavaScript takes data <span class="hljs-built_in">from</span> <span class="hljs-keyword">an</span> attacker-controllable source, such <span class="hljs-keyword">as</span> <span class="hljs-keyword">the</span> <span class="hljs-built_in">URL</span>, <span class="hljs-keyword">and</span> passes <span class="hljs-keyword">it</span> <span class="hljs-built_in">to</span> <span class="hljs-keyword">a</span> sink that supports dynamic code execution, such <span class="hljs-keyword">as</span> eval() <span class="hljs-keyword">or</span> innerHTML. This enables attackers <span class="hljs-built_in">to</span> execute malicious JavaScript, The most important thing you need <span class="hljs-built_in">to</span> understand <span class="hljs-keyword">in</span> depth about DOM is <span class="hljs-keyword">the</span> source <span class="hljs-keyword">and</span> sink For more information about <span class="hljs-keyword">the</span> source <span class="hljs-keyword">and</span> sink look portswigger.
+</code></pre></li>
+<li><p><strong>What is DOM-based cross-site scripting?</strong></p>
+<p>  -DOM-based XSS vulnerabilities usually arise when JavaScript takes data from an attacker-controllable source, such as the URL, and passes it to a sink that supports dynamic code execution, such as <code>seval() or innerHTML</code>. This enables attackers to execute malicious JavaScript, which typically allows them to hijack other users&#39; accounts.</p>
+</li>
+</ul>
+<ul>
+<li><p><strong>How to test for DOM-based cross-site scripting</strong></p>
+<ul>
+<li><p>The most common source for DOM XSS is the URL, which is typically accessed with the window.location object. </p>
+</li>
+<li><p>The majority of DOM XSS vulnerabilities can be found quickly and reliably using Burp Suite&#39;s web vulnerability scanner. To test for DOM-based cross-site scripting manually, you generally need to use a browser with developer tools, such as Chrome. You need to work through each available source in turn, and test each one individually.</p>
+</li>
+</ul>
+</li>
+<li><p><strong>Which sinks can lead to DOM-XSS vulnerabilities?</strong></p>
+<ul>
+<li><p>The following are some of the main sinks that can lead to DOM-XSS vulnerabilities:</p>
+<ol>
+<li>document.write()</li>
+<li>document.writeln()</li>
+<li>document.domain</li>
+<li>element.innerHTML</li>
+<li>element.outerHTML</li>
+<li>element.insertAdjacentHTML</li>
+<li>element.onevent </li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>DOM XSS in jQuery :</strong></p>
+<ul>
+<li><p>If a JavaScript library such as jQuery is being used, look out for sinks that can alter DOM elements on the page. For  instance, jQuery&#39;s attr() function can change the attributes of DOM elements.</p>
+<p> <code>$(function() { $(&#39;#backLink&#39;).attr(&quot;href&quot;,(new URLSearchParams(window.location.search)).get(&#39;returnUrl&#39;)); });</code> </p>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code> - Another potential sink <span class="hljs-keyword">to</span> look out <span class="hljs-keyword">for</span> <span class="hljs-keyword">is</span> jQuery's $() selector function, which can be used <span class="hljs-keyword">to</span> inject malicious objects <span class="hljs-keyword">into</span> <span class="hljs-keyword">the</span> DOM.
+
+   <span class="hljs-comment">-- jQuery used to be extremely popular, and a classic DOM XSS vulnerability was caused by websites using this selector in conjunction with the ```location.hash``` source for animations or auto-scrolling to a particular element on the page. </span>
+
+   <span class="hljs-comment">-- This behavior was often implemented using a vulnerable hashchange event handler, similar to the following:  </span>
+
+       ```$(window).<span class="hljs-keyword">on</span>('hashchange', function() {var element = $(location.hash);element[<span class="hljs-number">0</span>].scrollIntoView();});```  
+
+
+
+ <span class="hljs-comment">--The following jQuery functions are also sinks that can lead to DOM-XSS vulnerabilities:</span>
+
+    add()
+    <span class="hljs-keyword">after</span>()
+    append()
+    animate()
+    insertAfter()
+    insertBefore()
+    <span class="hljs-keyword">before</span>()
+    html()
+    prepend()
+    replaceAll()
+    replaceWith()
+    wrap()
+    wrapInner()
+    wrapAll()
+    has()
+    constructor()
+    init()
+    index()
+    jQuery.parseHTML()
+    $.parseHTML()
+
+ - More recent versions <span class="hljs-keyword">of</span> jQuery have patched this particular vulnerability <span class="hljs-keyword">by</span> preventing you <span class="hljs-keyword">from</span> injecting HTML <span class="hljs-keyword">into</span> a selector when <span class="hljs-keyword">the</span> input <span class="hljs-keyword">begins with</span> a hash <span class="hljs-built_in">character</span> (<span class="hljs-comment">#). However, you may still find vulnerable code in the wild.To actually exploit this classic vulnerability, you'll need to find a way to trigger a hashchange event without user interaction. One of the simplest ways of doing this is to deliver your exploit via an iframe:</span>
+ ```&lt;iframe src=<span class="hljs-string">"https://vulnerable-website.com#"</span> onload=<span class="hljs-string">"this.src+='&lt;img src=1 onerror=alert(1)&gt;'"</span>&gt;```
+
+ __Note__
+
+     Even newer versions <span class="hljs-keyword">of</span> jQuery can still be vulnerable via <span class="hljs-keyword">the</span> $() selector sink, provided you have full control <span class="hljs-keyword">over</span> <span class="hljs-keyword">its</span> input <span class="hljs-keyword">from</span> a source <span class="hljs-keyword">that</span> doesn't require a <span class="hljs-comment"># prefix.</span>
+</code></pre><ul>
+<li><p><strong>DOM XSS in AngularJS</strong>  </p>
+<ul>
+<li>If a framework like AngularJS is used, it may be possible to execute JavaScript without angle brackets or events. When a site uses the ng-app attribute on an HTML element, it will be processed by AngularJS. In this case, AngularJS will execute JavaScript inside double curly braces that can occur directly in HTML or inside attributes. <code>https://bit.ly/XSSinAngular</code></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>DOM XSS combined with reflected and stored data</strong>    </p>
+<ul>
+<li><p>In a <strong>reflected DOM XSS</strong> vulnerability, the server processes data from the request, and echoes the data into the response. The reflected data might be placed into a JavaScript string literal, or a data item within the DOM, such as a form field. A script on the page then processes the reflected data in an unsafe way, ultimately writing it to a dangerous sink.
+<code>eval(&#39;var data = &quot;reflected string&quot;&#39;);</code></p>
+</li>
+<li><p>In a <strong>stored DOM XSS</strong> vulnerability, the server receives data from one request, stores it, and then includes the data in a later response. A script within the later response contains a sink which then processes the data in an unsafe way. <code>element.innerHTML = comment.author</code>     </p>
+</li>
+</ul>
+<h3 id="how-to-prevent-xss-attacks">How to prevent XSS attacks</h3>
+</li>
+<li><p><strong>Preventing cross-site scripting</strong></p>
+<ol>
+<li><p><code>Filter input on arrival</code> At the point where user input is received, filter as strictly as possible based on what is expected or valid input.</p>
+</li>
+<li><p><code>Encode data on output</code> At the point where user-controllable data is output in HTTP responses, encode the output to prevent it from being interpreted as active content. Depending on the output context, this might require applying combinations of HTML, URL, JavaScript, and CSS encoding.</p>
+</li>
+<li><p><code>Use appropriate response headers</code> To prevent XSS in HTTP responses that aren&#39;t intended to contain any HTML or JavaScript, you can use the Content-Type and X-Content-Type-Options headers to ensure that browsers interpret the responses in the way you intend.</p>
+</li>
+<li><p><code>Content Security Policy</code> As a last line of defense, you can use Content Security Policy (CSP) to reduce the severity of any XSS vulnerabilities that still occur.</p>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="common-questions-about-cross-site-scripting">Common questions about cross-site scripting</h3>
+<ul>
+<li><p><strong>What is the difference between reflected XSS and stored XSS?</strong></p>
+<ul>
+<li><strong>Reflected XSS</strong> arises when an application takes some input from an HTTP request and embeds that input into the immediate response in an unsafe way. With <strong>stored XSS</strong>, the application instead stores the input and embeds it into a later response in an unsafe way.  </li>
+</ul>
+</li>
+<li><p><strong>What is the difference between reflected XSS and self-XSS?</strong> </p>
+<ul>
+<li>the main difference between Reflected XSS and Self-XSS lies in how the malicious code is executed: in <code>Reflected XSs</code>, the code is executed in the context of a vulnerable web application and affects multiple users, while in <code>Self-XSS</code>, the code is executed by the user themselves through social engineering tactics and typically affects only the individual user who falls victim to the scam.      </li>
+</ul>
+</li>
+<li><p><strong>How common are XSS vulnerabilities?</strong></p>
+<p>  -XSS vulnerabilities are very common, and XSS is probably the most frequently occurring web security vulnerability.</p>
+</li>
+<li><p><strong>How common are XSS attacks?</strong>  </p>
+<ul>
+<li>It is difficult to get reliable data about real-world XSS attacks, but it is probably less frequently exploited than other vulnerabilities.  </li>
+</ul>
+</li>
+<li><p><strong>What is the difference between XSS and CSRF?</strong></p>
+<ul>
+<li>XSS involves causing a web site to return malicious JavaScript, while CSRF involves inducing a victim user to perform actions they do not intend to do.</li>
+</ul>
+</li>
+<li><p><strong>What is the difference between XSS and SQL injection?</strong> </p>
+<ul>
+<li>XSS is a client-side vulnerability that targets other application users, while SQL injection is a server-side vulnerability that targets the application&#39;s database.</li>
+</ul>
+</li>
+<li><p><strong>How do I prevent XSS in PHP?</strong></p>
+<ul>
+<li>Filter your inputs with a whitelist of allowed characters and use type hints or type casting. Escape your outputs with htmlentities and ENT_QUOTES for HTML contexts, or JavaScript Unicode escapes for JavaScript contexts.</li>
+</ul>
+</li>
+<li><p><strong>How do I prevent XSS in Java?</strong> </p>
+<ul>
+<li>Filter your inputs with a whitelist of allowed characters and use a library such as Google Guava to HTML-encode your output for HTML contexts, or use JavaScript Unicode escapes for JavaScript contexts.  </li>
+</ul>
+</li>
+</ul>
+
+    <footer>
+      <p>&copy;hu1k0 Notebook Website</p>
+    </footer>
+</body>
+</html>

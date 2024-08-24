@@ -1,0 +1,10 @@
+psql -h host -U user
+
+
+> \list
+
+> \c secrets
+
+> \d
+
+> select * from flag;

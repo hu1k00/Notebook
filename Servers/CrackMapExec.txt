@@ -1,0 +1,1 @@
+crackmapexec ssh hostname&ip -u user.txt -p 'P@ssWo$d'

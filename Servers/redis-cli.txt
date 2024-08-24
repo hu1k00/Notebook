@@ -1,0 +1,11 @@
+redis-cli :: port :6379
+
+redis-cli -h &ip
+
+inf 
+
+select 0  |-servers
+
+key *     |-list
+
+get &filename |-read

@@ -1,0 +1,7 @@
+rsync --list-only rsync://<ip address>/file_name.
+
+(the dot at the end is to download into your current directory.)
+
+__We can also use__
+
+rsync -av rsync://$ip/public/flag.txt ./(destination directory)

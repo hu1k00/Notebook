@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal - My Notebook Website</title>
+    <link rel="stylesheet" href="../../Static/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Notebook</h1>
+        <nav>
+            <ul>
+                <li><a href="../../Main.html">Home</a></li>
+            </ul>
+        </nav>
+        <h4> Path Traversal</h4>
+    </header>
+    <h1 id="path-traversal">Path traversal</h1>
+<ul>
+<li><p><strong>What is path traversal?</strong></p>
+<ul>
+<li><p>Path traversal is also known as directory traversal. These vulnerabilities enable an attacker to read arbitrary files on the server that is running an application. This might include: </p>
+<ol>
+<li>Application code and data. </li>
+<li>Credentials for back-end systems. </li>
+<li>Sensitive operating system files. </li>
+</ol>
+</li>
+<li><p>In some cases, an attacker might be able to write to arbitrary files on the server, allowing them to modify application data or behavior, and ultimately take full control of the server.     </p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>Reading arbitrary files via path traversal</strong> </p>
+<ul>
+<li><p>Imagine a shopping application that displays images of items for sale. This might load an image using the following HTML:  <code>&lt;img src=&quot;/loadImage?filename=218.png&quot;&gt;</code>   </p>
+</li>
+<li><p>The loadImage URL takes a filename parameter and returns the contents of the specified file. The image files are stored on disk in the location <code>/var/www/images/</code>  </p>
+</li>
+<li><p>This application implements no defenses against path traversal attacks. As a result, an attacker can request the following URL to retrieve the /etc/passwd file from the server&#39;s filesystem: </p>
+<p><code>https://insecure-website.com/loadImage?filename=../../../etc/passwd</code></p>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code> - The following <span class="hljs-keyword">is</span> an example <span class="hljs-keyword">of</span> an equivalent attack against a Windows-based server:
+
+ `<span class="javascript"></span>``<span class="javascript">https:<span class="hljs-comment">//insecure-website.com/loadImage?filename=..\..\..\windows\win.ini</span></span>``<span class="javascript"></span>`
+</code></pre><ul>
+<li><p><strong>How to prevent a path traversal attack?</strong></p>
+<ul>
+<li><p>Preventing path traversal attacks involves implementing various security measures in your application to ensure that user input cannot be used to access files or directories outside of the intended scope. Here are some best practices to prevent path traversal attacks:</p>
+<ol>
+<li><p>Input Validation: Validate and sanitize all user input, especially file and directory paths, to ensure they contain only allowed characters and do not contain any sequences that could be used to traverse directories.</p>
+</li>
+<li><p>Use Whitelists: Instead of blacklisting specific characters or patterns, use whitelists to specify the allowed characters and patterns for file and directory names.</p>
+</li>
+<li><p>File Path Canonicalization: Normalize and canonicalize file paths before using them. This involves converting relative paths to absolute paths and removing any redundant elements such as &quot;..&quot; or &quot;.&quot;.</p>
+</li>
+<li><p>Restrict Access: Set appropriate file system permissions to restrict access to sensitive files and directories. Ensure that files that should not be accessed directly by users are not accessible via URL manipulation.</p>
+</li>
+<li><p>Use Framework Libraries: Utilize built-in functions or libraries provided by your programming language or framework to handle file operations securely. These libraries often have built-in protections against path traversal attacks.</p>
+</li>
+<li><p>Implement Access Controls: Implement access controls to restrict the files and directories that users can access based on their privileges and roles. This can help prevent unauthorized access to sensitive files.</p>
+</li>
+<li><p>Use Sandboxing: Run your application in a sandbox environment with restricted privileges to limit the potential impact of a successful path traversal attack.</p>
+</li>
+<li><p>Regular Security Audits: Conduct regular security audits of your application&#39;s codebase to identify and fix any potential vulnerabilities, including those related to path traversal attacks.</p>
+</li>
+<li><p>Education and Training: Educate developers about the risks of path traversal attacks and provide training on secure coding practices to help prevent such vulnerabilities from being introduced in the first place.</p>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+
+    <footer>
+        <p>&copy;hu1k0 Notebook Website</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal - My Notebook Website</title>
+    <link rel="stylesheet" href="../../Static/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Notebook</h1>
+        <nav>
+            <ul>
+                <li><a href="../../Main.html">Home</a></li>
+            </ul>
+        </nav>
+        <h4> File Upload</h4>
+    </header>
+    <h1 id="file-upload">File Upload</h1>
+    <ul>
+    <li><p><strong>What are file upload vulnerabilities?</strong></p>
+    <ul>
+    <li>File upload vulnerabilities are when a web server allows users to upload files to its filesystem without sufficiently validating things like their name, type, contents, or size. </li>
+    </ul>
+    <ul>
+    <li><p><strong>What is the impact of file upload vulnerabilities?</strong></p>
+    <ul>
+    <li><p>The impact of file upload vulnerabilities generally depends on two key factors:</p>
+    <ul>
+    <li><p>Which aspect of the file the website fails to validate properly, whether that be its size, type, contents, and so on.</p>
+    </li>
+    <li><p>What restrictions are imposed on the file once it has been successfully uploaded.   </p>
+    </li>
+    </ul>
+    <p><code>In the worst case scenario, the file&#39;s type isn&#39;t validated properly, and the server configuration allows certain types of file (such as .php and .jsp) to be executed as code. In this case, an attacker could potentially upload a server-side code file that functions as a web shell, effectively granting them full control over the server.</code></p>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    <img src="File(lfi$rfi).png">
+
+</ul>
+    <footer>
+        <p>&copy;hu1k0 Notebook Website</p>
+    </footer>
+</body>
+</html>

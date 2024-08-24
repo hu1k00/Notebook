@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Save as Notepad</title>
+</head>
+<body>
+    <textarea id="content" rows="100" cols="100"></textarea><br>
+    <button onclick="saveAsNotepad()">Save as Notepad</button>
+
+    <script>
+        function saveAsNotepad() {
+            const content = document.getElementById('content').value;
+            const blob = new Blob([content], { type: 'text/plain' });
+            const anchor = document.createElement('a');
+
+            anchor.download = 'notes.txt';
+            anchor.href = window.URL.createObjectURL(blob);
+            anchor.target = '_blank';
+            anchor.style.display = 'none';
+
+            document.body.appendChild(anchor);
+            anchor.click();
+            document.body.removeChild(anchor);
+        }
+    </script>
+    <h1>SAVED..</h1>
+    <ul>
+        <li><a href="../SAVED/">SAVED</a></li>
+    </ul>    
+</body>
+</html>

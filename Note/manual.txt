@@ -1,0 +1,17 @@
+
+
+* "company" password
+* "company" secret
+* "company" credentials
+* "company" token
+* "company" config
+* "company" key
+* "company" pass
+* "company" login
+* "company" ftp
+* "company" pwd
+* "company" secret_credentials
+* "company" JDBC
+* "company" ssh_auth_password   
+* "company" send_key,send_keys
+

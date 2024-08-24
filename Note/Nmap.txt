@@ -1,0 +1,26 @@
+####NMAP####
+
+nmap 10.0.2.0/24 {network scan}
+
+--top-ports 20 or 100
+-F  (100 ports)
+-O  (OS Detection)
+-sn (ping scan)
+-A  (Agressive scan)
+-p  (specific port)
+-sS (stealth scan)
+-sV (version of the service)
+-oN (save in txt)
+-sC (Scan with default NSE scripts. Considered useful for discovery and safe)
+--script "banner"
+--script "http-methosds"
+--script "http-enum" {ip:8180/word}
+--script "smb-enum-users"
+/usr/share/nmap/scripts
+====================================
+####search####
+
+ls |grep "word?"
+
+====================================
+

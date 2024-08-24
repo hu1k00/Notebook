@@ -1,0 +1,1 @@
+xfreerdp /v:$IP /cert:ignore /u:Administrator /p:password

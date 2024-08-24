@@ -1,0 +1,5 @@
+> ss -tln  ||will see 127.0.0.1:5432
+
+> ssh -L 1234:localhost:5432 user@hostname then type a password || tunneling..
+
+> nmap -sV -sC  -p 1234 localhost  | nmap check ..

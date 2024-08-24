@@ -1,0 +1,59 @@
+<h1 id="methodology">Methodology</h1>
+<h2 id="information-gathering-recon-">Information Gathering (Recon)</h2>
+<ul>
+<li><strong>Subdomain</strong> <ul>
+<li>Subdomain enumeration (<code>Sublist3r</code>)</li>
+<li><code>Sublert</code> for domain monitoring</li>
+<li><a href="https://crt.sh/">Cer.sh</a> [%.Domain.com]</li>
+<li><code>gitGraber</code> to search for sensitive information in Github repositories</li>
+<li><code>Shodan.io</code></li>
+<li>Internet Archive (aka <a href="https://web.archive.org/">way back machine</a>)</li>
+<li>Browser plugins: <code>Wappalyzer, and FlagFox</code></li>
+<li><code>LazyRecon</code></li>
+</ul>
+</li>
+<li><strong>Technology</strong> </li>
+</ul>
+<h2 id="scanning">Scanning</h2>
+<ul>
+<li><p><strong>Port scanning Nmap/ Masscan and BurpScanner</strong></p>
+<ul>
+<li><p>Nmap with -A option, and -auth-http-enum scripts (Masscan?) </p>
+</li>
+<li><p><code>S3Scanner</code> for insecure AWS buckets</p>
+</li>
+<li><p><code>Subdomain TakeOver</code>:
+<a href="https://github.com/m4110k/takeover">https://github.com/m4110k/takeover</a> &amp;&amp; <a href="https://github.com/haccer/subjack">https://github.com/haccer/subjack</a></p>
+</li>
+<li><p>Run <code>Burp scanner</code> in the background with following plugins:
+ <strong>J2EEScan</strong>, <strong>NGINX Alias Traversal</strong>, <strong>Telewreck, ParamMiner</strong>, and <strong>Upload Scanner</strong>  </p>
+</li>
+</ul>
+</li>
+<li><p><strong>File and dierctories BruteForcing,in order to identify backup files, test and development files;</strong></p>
+<ul>
+<li><p>Dirsearch for backup files, hidden files, and admin interfaces</p>
+</li>
+<li><p>Configure XSS Hunter with Burp Proxy (UserAgent and/or X- Forwarded-For)</p>
+</li>
+</ul>
+</li>
+<li><p><strong>Test for privilege esclations, and cluent/server side vulnerabilities.</strong></p>
+</li>
+</ul>
+<h2 id="exploitation">Exploitation</h2>
+<ul>
+<li><p><strong>Never Access sensitive data , but only retrieve data sample that could be used as {POC}</strong></p>
+</li>
+<li><p><strong>Avoid abusing adminstrative privileges.</strong> </p>
+</li>
+</ul>
+<h2 id="reporting">Reporting</h2>
+<ul>
+<li><p><strong>Detailed information about the identified vulnerability</strong></p>
+</li>
+<li><p><strong>How an attacker could wxploit it ? Are certain privileges required? Or any inernet user can exploit it ?</strong> </p>
+</li>
+<li><p><strong>{POC i.e. Screenshots}.</strong> </p>
+</li>
+</ul>

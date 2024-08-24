@@ -1,0 +1,37 @@
+1-link from github
+
+2-git clone link 
+
+3-git add file name
+
+4- git status f/info??
+
+5-git reset head fname
+
+6-git commit -m "PLA PLA PLA"
+
+7- git push 
+
+8-git branch
+
+9-git remote -v
+
+10-git pull origin
+
+11-git config -l {all configration..}
+
+12- git config --global fnamee {x.configration} "PLA@ACZX"
+
+13-git config --global unset 
+
+14-git config --global --edit
+
+15-ssh-keygen -t rsa -b 4096 -C "email"
+    :: password 
+ cat ~/.ssh/id_rsa.pub  {copy} then go setting ssh key and {paste}.
+
+16-ssh -T git@github.com {Login}
+
+17- To Create ++ == mkdir ,, touch
+
+18- git puh -u origin master
