@@ -1,1 +1,4 @@
 nmap --min-rate 5000 >> NOTE
+
+
+hosts on windows : /windows/system32/drivers/etc/hosts
