@@ -1,3 +1,6 @@
+mysql -h 10.129.34.192  -u root -p --ssl=FALSE
+
+
 mysql -u root -h 10.129.209.100
 
 > show databases;
